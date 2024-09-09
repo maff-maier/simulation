@@ -18,7 +18,7 @@ class PositiveValue:
 
 
 class Entity(ABC):
-    hp = PositiveValue('_hp')
+    hp: int = PositiveValue('_hp')
 
     def __init__(self, hp: int) -> None:
         self.hp = hp
