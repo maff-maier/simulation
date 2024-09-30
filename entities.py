@@ -67,22 +67,38 @@ class Creature(Entity):
     def _bite(self, entity: Entity) -> None:
         entity.hp -= self.attack
 
+    @abstractmethod
+    def is_possible_bite(self, entity: Entity) -> None:
+        pass
+
 
 class Herbivore(Creature):
     def _bite(self, entity: Resource) -> None:
         super()._bite(entity=entity)
+
+    def is_possible_bite(self, entity: Resource) -> bool:
+        return isinstance(entity, Resource)
 
 
 class Predator(Creature):
     def _bite(self, entity: Herbivore) -> None:
         super()._bite(entity=entity)
 
+    def is_possible_bite(self, entity: Entity) -> None:
+        return isinstance(entity, Herbivore)
+
 
 class Sheep(Herbivore):
     def __init__(self, hp: int = 10, speed: int = 1, attack: int = 1) -> None:
         super().__init__(hp=hp, speed=speed, attack=attack)
 
+    def make_move(self) -> None:
+        return super().make_move()
+
 
 class Wolf(Predator):
-    def __init__(self, hp: int, speed: int, attack: int) -> None:
+    def __init__(self, hp: int = 15, speed: int = 2, attack: int = 2) -> None:
         super().__init__(hp=hp, speed=speed, attack=attack)
+
+    def make_move(self) -> None:
+        return super().make_move()
