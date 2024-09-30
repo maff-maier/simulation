@@ -1,7 +1,7 @@
 from typing import Any
 
 
-class PositiveCoord:
+class NonNegativeCoord:
     def __init__(self, name: str) -> None:
         self._name = name
 
@@ -17,8 +17,8 @@ class PositiveCoord:
 
 
 class Coordinates:
-    height: int = PositiveCoord()
-    width: int = PositiveCoord()
+    height: int = NonNegativeCoord(name='_height')
+    width: int = NonNegativeCoord(name='_width')
 
     def __init__(self, height: int, width: int) -> None:
         self.height = height
