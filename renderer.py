@@ -1,7 +1,7 @@
 from typing import Protocol
 
 from coordinates import Coordinates
-from loader import IconsLoader, load_data
+from loader import IconsLoader, load_file
 from world_map import WorldMap
 
 
@@ -11,8 +11,8 @@ class Renderer(Protocol):
 
 
 class CliRenderer(Renderer):
-    def __init__(self, path: str) -> None:
-        self._icons = self._get_icons(path=path)
+    def __init__(self, icons_path: str) -> None:
+        self._icons = self._get_icons(path=icons_path)
 
     def render(self, world_map: WorldMap) -> None:
         for height in range(world_map.height):
@@ -27,4 +27,4 @@ class CliRenderer(Renderer):
             print()
 
     def _get_icons(self, path: str) -> dict[str, str]:
-        return load_data(loader=IconsLoader(), path=path)
+        return load_file(loader=IconsLoader(), path=path)
