@@ -1,6 +1,7 @@
 from typing import Protocol
 
 from factories import EntityFactory
+from loader import ConfigLoader, load_file
 from world_map import WorldMap
 
 
@@ -20,3 +21,13 @@ class CreateEntityAction(Action):
         
         world_map.add_entity(coords=coords, entity=factory.create())
     
+
+class NextStepAction(Action):
+    def execute(self, world_map: WorldMap) -> None:
+        [entity.make_move() for entity in world_map.entities.values()]
+
+class CreateRandomMapAction(Action):
+    def execute(self, world_map: WorldMap) -> None:
+        config = load_file(loader=ConfigLoader())
+        
+        # TODO: Initialize all entity according to coeffs
