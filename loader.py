@@ -1,6 +1,5 @@
 import json
-from abc import ABC, abstractmethod
-from typing import Any, Iterable, Protocol
+from typing import Iterable, Protocol
 
 
 class Loader(Protocol):
@@ -24,5 +23,5 @@ class IconsLoader(JsonLoader):
         return super().load(path)
 
 
-def load_data(loader: Loader, path: str) -> Iterable:
+def load_file(loader: Loader, path: str) -> Iterable:
     return loader.load(path=path)
