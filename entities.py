@@ -23,23 +23,19 @@ class Entity(ABC):
     def __init__(self, hp: int) -> None:
         self.hp = hp
 
-    @abstractmethod
-    def make_move(self) -> None:
-        pass
-
 
 class StaticEntity(Entity):
     pass
 
 
 class Rock(StaticEntity):
-    def make_move(self) -> None:
-        return super().make_move()
+    def __init__(self, hp: int = 20) -> None:
+        super().__init__(hp=hp)
 
 
 class Tree(StaticEntity):
-    def make_move(self) -> None:
-        return super().make_move()
+    def __init__(self, hp: int = 50) -> None:
+        super().__init__(hp=hp)
 
 
 class Resource(Entity):
@@ -47,29 +43,30 @@ class Resource(Entity):
 
 
 class Grass(Resource):
-    def __init__(self, hp: int = 3) -> None:
+    def __init__(self, hp: int = 5) -> None:
         super().__init__(hp=hp)
-
-    def make_move(self) -> None:
-        return super().make_move()
 
 
 class Creature(Entity):
-    speed: int = PositiveValue('_speed')
+    action_points: int = PositiveValue('_action_points')
     attack: int = PositiveValue('_attack')
 
-    def __init__(self, hp: int, speed: int, attack: int) -> None:
+    def __init__(self, hp: int, aciton_points: int, attack: int) -> None:
         super().__init__(hp=hp)
-        self.speed = speed
+        self.action_points = aciton_points
         self.attack = attack
 
     @abstractmethod
-    def _bite(self, entity: Entity) -> None:
-        entity.hp -= self.attack
+    def make_move(self) -> None:
+        pass
 
     @abstractmethod
     def is_possible_bite(self, entity: Entity) -> None:
         pass
+
+    @abstractmethod
+    def _bite(self, entity: Entity) -> None:
+        entity.hp -= self.attack
 
 
 class Herbivore(Creature):
@@ -81,24 +78,24 @@ class Herbivore(Creature):
 
 
 class Predator(Creature):
+    def is_possible_bite(self, entity: Herbivore) -> None:
+        return isinstance(entity, Herbivore)
+
     def _bite(self, entity: Herbivore) -> None:
         super()._bite(entity=entity)
 
-    def is_possible_bite(self, entity: Entity) -> None:
-        return isinstance(entity, Herbivore)
-
 
 class Sheep(Herbivore):
-    def __init__(self, hp: int = 10, speed: int = 1, attack: int = 1) -> None:
-        super().__init__(hp=hp, speed=speed, attack=attack)
+    def __init__(self, hp: int = 10, action_points: int = 2, attack: int = 2) -> None:
+        super().__init__(hp=hp, aciton_points=action_points, attack=attack)
 
     def make_move(self) -> None:
         return super().make_move()
 
 
 class Wolf(Predator):
-    def __init__(self, hp: int = 15, speed: int = 2, attack: int = 2) -> None:
-        super().__init__(hp=hp, speed=speed, attack=attack)
+    def __init__(self, hp: int = 15, action_points: int = 3, attack: int = 3) -> None:
+        super().__init__(hp=hp, aciton_points=action_points, attack=attack)
 
     def make_move(self) -> None:
         return super().make_move()
