@@ -1,9 +1,9 @@
 from typing import Any
-from random import randint
+from random import randrange
 
 from coordinates import Coordinates
 from entities import Creature, Entity
-from loader import ConfigLoader, load_data
+from loader import ConfigLoader, load_file
 
 
 class WorldMapValue:
@@ -29,7 +29,7 @@ class WorldSizeValue:
         return instance.__dir__[self._name]
 
     def __set__(self, instance: Any, value: int) -> None:
-        constraints = load_data(loader=ConfigLoader())['constrains']
+        constraints = load_file(loader=ConfigLoader())['map_constraints']
 
         if value < constraints[self._name]:
             raise ValueError(
@@ -59,18 +59,28 @@ class WorldMap:
         self.entities[coords] = entity
 
     def get_random_coordinates(self) -> Coordinates:
-        # -1 because randint includes both border values
-        return Coordinates(height=randint(0, self.height-1), width=randint(0, self.width-1))
+        return Coordinates(height=randrange(0, self.height), width=randrange(0, self.width))
 
     def is_empty_coordinates(self, coords: Coordinates) -> bool:
         return self.entities.get(key=coords, default=None) is None
 
     def update_entity_coordinates(self, entity: Creature, new_coords: Coordinates) -> None:
-        for coords, ent in self.entities:
+        coords = self._find_coordinates_by_entity(entity=entity)
+
+        if coords is None:
+            raise ValueError('Entity not found')
+
+        self.entities[new_coords] = self.entities.pop(key=coords)
+
+    def get_reachable_coords(self, coords: Coordinates) -> list[Coordinates]:
+        adjacents = self._get_adjacents_coords(target=coords)
+        return [adjacent for adjacent in adjacents if self._can_reach(coords=coords, target_coords=adjacent)]
+
+    def _find_coordinates_by_entity(self, entity: Entity) -> Coordinates:
+        for coords, ent in self.entities.items():
             if ent == entity:
-                del self.entities[coords]
-                self.add_entity(coords=new_coords, entity=entity)
-                break
+                return coords
+        return None
 
     def _get_adjacents_coords(self, target: Coordinates) -> list[Coordinates]:
         adjacents = [
@@ -87,14 +97,13 @@ class WorldMap:
         return list(filter(lambda x: x is not None, adjacents))
 
     def _can_reach(self, coords: Coordinates, target_coords: Coordinates) -> bool:
-        entity: Creature = self.entities[coords]
-        target: Creature = self.entities.get(key=target, defaulf=None)
+        entity = self.entities[coords]
+        target = self.entities.get(key=target, defaulf=None)
+
+        if not isinstance(entity, Creature):
+            return False
 
         if target is None:
             return False
 
         return entity.is_possible_bite(entity=self.entities[target_coords])
-
-    def get_reachable_coords(self, coords: Coordinates) -> list[Coordinates]:
-        adjacents = self._get_adjacents_coords(target=coords)
-        return [adjacent for adjacent in adjacents if self._can_reach(coords=coords, target_coords=adjacent)]
