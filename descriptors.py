@@ -8,7 +8,7 @@ class NonNegativeValue:
     def __get__(self, instance: Any, owner: Any) -> Any:
         if not instance:
             return None
-        return instance.__dir__[self._name]
+        return instance.__dict__[self._name]
 
     def __set__(self, instance: Any, value: int) -> None:
         if not isinstance(value, int):
@@ -17,4 +17,4 @@ class NonNegativeValue:
         if value < 0:
             raise ValueError(f'{self._name.capitalize()} cannot be negative.')
 
-        instance.__dir__[self._name] = value
+        instance.__dict__[self._name] = value
