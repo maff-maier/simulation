@@ -13,11 +13,17 @@ class World:
 
         self._map: dict[Entity, Coordinates] = dict()
 
+    def get_entities(self) -> dict[Entity, Coordinates]:
+        return self._map
+
     def get_entity(self, entity: Entity) -> tuple[Entity, Coordinates]:
         return self._map.get(key=entity)
 
     def add_entity(self, entity: Entity, coords: Coordinates) -> None:
-        if entity in self._map:
+        is_within_bounds = (0 <= coords.height <
+                            self.height and 0 <= coords.width < self.width)
+
+        if not (entity in self._map or coords in self._map.values()) and not is_within_bounds:
             self._map[entity] = coords
 
     def remove_entity(self, entity: Entity) -> None:
