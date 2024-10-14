@@ -15,8 +15,7 @@ class Resource(Entity):
 
 
 class Grass(Resource):
-    def __init__(self, hp: int = 4) -> None:
-        super().__init__(hp=hp)
+    pass
 
 
 class Creature(Entity):
@@ -35,28 +34,20 @@ class Creature(Entity):
 
 
 class Herbivore(Creature):
-    def __init__(self, hp: int = 10, action_points: int = 2, attack: int = 2) -> None:
-        super().__init__(hp=hp, action_points=action_points, attack=attack)
-
     def bite(self, target: Resource) -> None:
         if isinstance(target, Resource):
             return super().bite(target)
 
 
 class Predator(Creature):
-    def __init__(self, hp: int = 15, action_points: int = 3, attack: int = 3) -> None:
-        super().__init__(hp=hp, action_points=action_points, attack=attack)
-
     def bite(self, target: Herbivore) -> None:
         if isinstance(target, Herbivore):
             return super().bite(target)
 
 
 class Tree(Entity):
-    def __init__(self, hp: int = 25) -> None:
-        super().__init__(hp=hp)
+    pass
 
 
 class Rock(Entity):
-    def __init__(self, hp: int = 50) -> None:
-        super().__init__(hp=hp)
+    pass
