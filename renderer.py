@@ -1,5 +1,3 @@
-
-
 from copy import copy
 from typing import Protocol
 
@@ -22,7 +20,6 @@ class CliRenderer(Renderer):
 
         for entity, coords in world.get_entities().items():
             class_name = entity.__class__.__name__.lower()
-            # review
             world_map[coords.height][coords.width] = self._icons[class_name]
 
         for row in world_map:
