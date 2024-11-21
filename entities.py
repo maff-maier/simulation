@@ -26,10 +26,7 @@ class Creature(Entity, ABC):
 
     def bite(self, target: Entity) -> None:
         if isinstance(target, type(self).target_type):
-            if target.hp >= self.damage:
-                target.hp -= self.damage
-            else:
-                target.hp = 0
+            target.hp = 0 if target.hp < self.damage else (target.hp - self.damage)
 
 
 class Resource(Entity, ABC):
