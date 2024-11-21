@@ -24,12 +24,17 @@ class World:
     def get_all_coordinates(self) -> list[Coordinates]:
         return self._map.values()
 
+    def remove_entity(self, entity: Entity) -> None:
+        if entity in self._map.keys():
+            del self._map[entity]
+
     def update_coordinates(self, entity: Entity, new_coords: Coordinates) -> None:
         if entity in self._map.keys():
             self._map[entity] = new_coords
     
-    def add_entity(self, entity: Entity) -> None:
-        ...
+    def add_entity(self, entity: Entity, coords: Coordinates) -> None:
+        if entity not in self._map.keys():
+            self._map[entity] = coords
         
     def is_within_bounds(self, height: int, width: int) -> bool:
         return (0 <= height < self.height) and (0 <= width < self.width)
