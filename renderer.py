@@ -27,3 +27,4 @@ class CliRenderer:
             for column in range(len(row)):
                 print(row[column], sep='', end='')
             print()
+        print()
