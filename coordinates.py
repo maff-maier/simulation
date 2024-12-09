@@ -11,7 +11,7 @@ class Coordinates:
         self.height = height
         self.width = width
 
-    def hash(self) -> int:
+    def __hash__(self) -> int:
         return hash((self.height, self.width))
     
     def __repr__(self) -> str:
