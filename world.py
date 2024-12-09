@@ -13,7 +13,8 @@ class World:
         self._map: dict[Entity, Coordinates] = dict()
 
     def get_entity(self, coords: Coordinates) -> Entity:
-        return next(entity for entity, coordinates in self._map.items() if coordinates == coords)
+        entity = [entity for entity, coordinates in self._map.items() if coordinates == coords]
+        return entity[0] if len(entity) else None
 
     def get_coordinates(self, target_entity: Entity) -> Coordinates:
         return self._map.get(target_entity)
