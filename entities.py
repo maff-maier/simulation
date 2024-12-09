@@ -14,7 +14,7 @@ class Entity(ABC):
         return f'{type(self).__name__}'
 
 
-class Creature(Entity, ABC):
+class Creature(Entity):
     target_type: Type[Entity] = None
     action_points: int = NonNegativeValue('_action_points')
     damage: int = NonNegativeValue('_damage')
@@ -26,7 +26,7 @@ class Creature(Entity, ABC):
 
     def bite(self, target: Entity) -> None:
         if isinstance(target, type(self).target_type):
-            target.hp = 0 if target.hp < self.damage else (target.hp - self.damage)
+            target.hp = 0 if target.hp <= self.damage else (target.hp - self.damage)
 
 
 class Resource(Entity, ABC):
