@@ -29,7 +29,7 @@ class Creature(Entity):
             target.hp = 0 if target.hp <= self.damage else (target.hp - self.damage)
 
 
-class Resource(Entity, ABC):
+class Resource(Entity):
     pass
 
 
