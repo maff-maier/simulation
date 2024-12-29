@@ -34,7 +34,7 @@ class BFS:
             current_coords = to_visit.popleft()
 
             entity = world.get_entity(coords=current_coords)
-            if entity and isinstance(entity, target_type):
+            if entity and isinstance(entity, target_type) and entity.hp:
                 return current_coords
 
             for direction in directions:
