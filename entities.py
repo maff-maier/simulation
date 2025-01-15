@@ -18,6 +18,7 @@ class Creature(Entity):
     target_type: Type[Entity] = None
     action_points: int = NonNegativeValue('_action_points')
     damage: int = NonNegativeValue('_damage')
+    satiety: int = NonNegativeValue('_satiety')
 
     def __init__(self, hp: int, action_points: int, damage: int) -> None:
         super().__init__(hp=hp)
@@ -41,13 +42,17 @@ class Predator(Creature):
     target_type: Type[Entity] = Herbivore
 
 
+class StaticEntity(Entity):
+    pass
+
+
 class Grass(Resource):
     pass
 
 
-class Rock(Entity):
+class Rock(StaticEntity):
     pass
 
 
-class Tree(Entity):
+class Tree(StaticEntity):
     pass
