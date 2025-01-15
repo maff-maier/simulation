@@ -27,7 +27,7 @@ class Moving:
             pathes: list[tuple[int, list[Coordinates]]] = find_reachable_pathes(world=world, path_finder=self.path_finder,
                                                                                 base_coords=base_coords, target_coords=target_coords)
 
-            if pathes is None:
+            if not pathes:
                 return
 
             path = pathes[0][1]
