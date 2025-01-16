@@ -16,3 +16,8 @@ class PausedOptions(Enum):
     RESUME: int = 1
     RESET: int = 2
     END: int = 3
+
+
+class GameStates(Enum):
+    RUNNING = 1
+    PAUSED = 2

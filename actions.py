@@ -1,12 +1,12 @@
 import random
 from typing import Protocol, Type
 
-from dying import Dying
-from entites_config import EntityConfig
-from entities import Creature, Entity
-from moving import Moving
-from spawning import Spawning
-from world import World
+from core.acts.dying import Dying
+from configs.entites_config import EntityConfig
+from core.entities.entities import Creature, Entity
+from core.acts.moving import Moving
+from core.acts.spawning import Spawning
+from core.world.world import World
 
 
 class Action(Protocol):

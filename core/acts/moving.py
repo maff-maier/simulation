@@ -1,10 +1,10 @@
 from math import ceil
 
-from coordinates import Coordinates
-from eating import Eating
-from entities import Creature
-from path_finder import BFS, PathFinder
-from world import World
+from core.world.coordinates import Coordinates
+from core.acts.eating import Eating
+from core.entities.entities import Creature
+from core.path_finders.path_finder import BFS, PathFinder
+from core.world.world import World
 
 
 class Moving:

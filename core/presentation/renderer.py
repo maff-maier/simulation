@@ -1,12 +1,10 @@
-import os
-import platform
 from copy import copy
-from typing import Protocol, Union
+from typing import Protocol
 
-from loader import IconsLoader
-from menu import Menu
-from world import World
-from states import RunningOptions, PausedOptions
+from core.presentation.loader import IconsLoader
+from core.presentation.menu import Menu
+from core.world.world import World
+from core.utils.states import GameStates
 
 
 class Renderer(Protocol):
@@ -15,11 +13,11 @@ class Renderer(Protocol):
 
 
 class CliRenderer:
-    def __init__(self, icons_path: str = 'icons.json') -> None:
+    def __init__(self, icons_path: str = 'core\\presentation\\icons.json') -> None:
         self._icons = IconsLoader().load(path=icons_path)
         self._menu = Menu()
 
-    def render(self, world: World) -> None:
+    def render(self, world: World, state: GameStates) -> None:
         width = [self._icons['space']] * world.width
         world_map = [copy(width) for _ in range(world.height)]
 
@@ -35,15 +33,14 @@ class CliRenderer:
             print()
         print()
 
-    def _print_ingame_menu(self, state: Union[RunningOptions, PausedOptions]) -> None:
-        if isinstance(state, RunningOptions):
-            print(self._menu.get_pause_menu())
-        elif isinstance(state, PausedOptions):
-            print(self._menu.get_continuing_menu())
+        self._print_ingame_menu(state=state)
+
+    def _print_ingame_menu(self, state: GameStates) -> None:
+        match state:
+            case GameStates.RUNNING:
+                print(self._menu.get_pause_menu())
+            case GameStates.PAUSED:
+                print(self._menu.get_continuing_menu())
 
     def print_start_menu(self) -> None:
         print(self._menu.get_start_menu())
-
-    def clear_console(self) -> None:
-        command = 'cls' if platform.system() == 'Windows' else 'clear'
-        os.system(command)

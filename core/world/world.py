@@ -1,6 +1,6 @@
-from coordinates import Coordinates
-from descriptors import NonNegativeValue
-from entities import Entity
+from core.world.coordinates import Coordinates
+from core.utils.descriptors import NonNegativeValue
+from core.entities.entities import Entity
 
 
 class World:

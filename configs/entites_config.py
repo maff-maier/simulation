@@ -1,8 +1,8 @@
 from typing import NamedTuple, Type
 
-from attributes import Attributes, GrassAttributes, HerbivoreAttributes, PredatorAttributes, RockAttributes, TreeAttributes
-from entities import Entity, Grass, Herbivore, Predator, Rock, Tree
-from factories import Factory, GrassFactory, HerbivoreFactory, PredatorFactory, RockFactory, TreeFactory
+from configs.attributes import Attributes, GrassAttributes, HerbivoreAttributes, PredatorAttributes, RockAttributes, TreeAttributes
+from core.entities.entities import Entity, Grass, Herbivore, Predator, Rock, Tree
+from core.entities.factories import Factory, GrassFactory, HerbivoreFactory, PredatorFactory, RockFactory, TreeFactory
 
 
 class EntityConfig(NamedTuple):

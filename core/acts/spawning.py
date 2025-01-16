@@ -1,7 +1,7 @@
 from typing import Type
-from attributes import Attributes
-from factories import Factory
-from world import World
+from configs.attributes import Attributes
+from core.entities.factories import Factory
+from core.world.world import World
 
 
 class Spawning:

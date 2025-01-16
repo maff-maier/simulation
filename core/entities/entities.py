@@ -1,7 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import Type
 
-from descriptors import NonNegativeValue
+from core.utils.descriptors import NonNegativeValue
 
 
 class Entity(ABC):

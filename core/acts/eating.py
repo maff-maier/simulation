@@ -1,4 +1,4 @@
-from entities import Creature, Entity
+from core.entities.entities import Creature, Entity
 
 
 class Eating:

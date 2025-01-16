@@ -2,9 +2,9 @@ from collections import deque
 import heapq
 from typing import Protocol
 
-from coordinates import Coordinates
-from entities import Creature
-from world import World
+from core.world.coordinates import Coordinates
+from core.entities.entities import Creature
+from core.world.world import World
 
 
 class ManhattanHeuristicEvaluation:

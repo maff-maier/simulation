@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Type
 
-from attributes import Attributes
-from entities import Entity, Grass, Herbivore, Predator, Rock, Tree
+from configs.attributes import Attributes
+from core.entities.entities import Entity, Grass, Herbivore, Predator, Rock, Tree
 
 
 class Factory(ABC):

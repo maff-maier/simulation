@@ -1,6 +1,6 @@
 from typing import Any
 
-from descriptors import NonNegativeValue
+from core.utils.descriptors import NonNegativeValue
 
 
 class Coordinates:

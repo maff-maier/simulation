@@ -1,5 +1,5 @@
-from entities import Entity
-from world import World
+from core.entities.entities import Entity
+from core.world.world import World
 
 
 class Dying:
