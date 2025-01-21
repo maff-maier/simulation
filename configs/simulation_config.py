@@ -15,7 +15,7 @@ class SimulationConfig(NamedTuple):
 
 
 def get_default_sim_config() -> SimulationConfig:
-    world = World(height=3, width=3)
+    world = World(height=12, width=12)
     config = get_entities_config()
 
     init_actions = [FillWorldAction(entities_config=config)]
