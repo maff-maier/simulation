@@ -1,4 +1,3 @@
-import pyautogui
 from threading import Event, Thread
 from time import sleep
 
@@ -54,4 +53,3 @@ class Manager:
 
                 self._simulation.turn()
                 sleep(1)
-        pyautogui.press('enter')
