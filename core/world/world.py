@@ -64,7 +64,7 @@ class World:
                 return coords
 
     def is_full_map(self) -> bool:
-        return self.height * self.width == len(self._map)
+        return self.height * self.width == len(self._map.values())
     
     def _get_random_coordinates(self) -> Coordinates:
         from random import randrange

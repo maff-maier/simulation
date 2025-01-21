@@ -10,6 +10,9 @@ class Spawning:
         self.attributes = attributes
 
     def act(self, world: World) -> None:
+        if world.is_full_map():
+            return
+        
         coordinates = world.get_empty_random_coordinates()
         entity = self.factory.create(attributes=self.attributes)
 

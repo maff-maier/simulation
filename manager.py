@@ -1,3 +1,4 @@
+import pyautogui
 from threading import Event, Thread
 from time import sleep
 
@@ -26,7 +27,7 @@ class Manager:
                        stop_event=stop_event)
 
     def _run_menu(self, run_event: Event, stop_event: Event) -> None:
-        while not self._simulation.world.is_full_map():
+        while True:
             command = input().strip().lower()
             if not command.isdigit():
                 continue
@@ -41,15 +42,16 @@ class Manager:
                     stop_event.set()
                     break
                 case _:
-                    self._renderer.print_unknown_error()
+                    continue
 
     def _run_simulation(self, run_event: Event, stop_event: Event) -> None:
         self._simulation.start()
 
-        while not stop_event.is_set():
+        while not (stop_event.is_set() or self._simulation.world.is_full_map()):
             if run_event.is_set():
                 self._renderer.render(
                     world=self._simulation.world)
 
                 self._simulation.turn()
                 sleep(1)
+        pyautogui.press('enter')
