@@ -19,7 +19,7 @@ class PredatorAttributes(Attributes):
     hp: int = 10
     action_points: int = 3
     damage: int = 3
-    satiety: int = 2
+    satiety: int = 3
 
 
 class GrassAttributes(Attributes):

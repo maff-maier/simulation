@@ -15,29 +15,28 @@ class Factory(ABC):
 class HerbivoreFactory(Factory):
     @classmethod
     def create(cls, attributes: Type[Attributes]) -> Herbivore:
-        return Herbivore(hp=attributes.hp, action_points=attributes.action_points, damage=attributes.damage)
+        return Herbivore(attributes=attributes)
 
 
 class PredatorFactory(Factory):
     @classmethod
     def create(cls, attributes: Type[Attributes]) -> Predator:
-        return Predator(hp=attributes.hp, action_points=attributes.action_points, damage=attributes.damage)
+        return Predator(attributes=attributes)
 
 
 class GrassFactory(Factory):
     @classmethod
     def create(cls, attributes: Type[Attributes]) -> Grass:
-        return Grass(hp=attributes.hp)
+        return Grass(attributes=attributes)
 
 
 class RockFactory(Factory):
     @classmethod
     def create(cls, attributes: Type[Attributes]) -> Rock:
-        return Rock(hp=attributes.hp)
+        return Rock(attributes=attributes)
 
 
 class TreeFactory(Factory):
     @classmethod
     def create(cls, attributes: Type[Attributes]) -> Tree:
-        return Tree(hp=attributes.hp)
-
+        return Tree(attributes=attributes)
