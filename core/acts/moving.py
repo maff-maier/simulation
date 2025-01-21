@@ -18,6 +18,7 @@ class Moving:
                 world=world, base_creature=creature)
 
             if not target_coords:
+                creature.hungering(satiety_scale=-creature.action_points)
                 return
 
             target_entity = world.get_entity(coords=target_coords)
@@ -33,6 +34,7 @@ class Moving:
             path = pathes[0][1]
             is_near = not bool(path_len := len(path))
 
+            satiety_scale: int = 0
             if is_near:
                 points_to_kill = ceil(target_entity.hp/creature.damage)
                 action_counts = min(points_to_kill, creature.action_points)
@@ -42,13 +44,16 @@ class Moving:
                 while action_counts:
                     Eating().act(creature=creature, target=target_entity)
                     action_counts -= 1
+                    satiety_scale += 1
             else:
                 coords_index = min(creature.action_points, path_len)
 
                 self._move(world=world, creature=creature,
                            coords=path[coords_index-1])
-
+                satiety_scale -= coords_index
                 creature.action_points -= coords_index
+
+            creature.hungering(satiety_scale=satiety_scale)
 
     def _move(self, world: World, creature: Creature, coords: Coordinates) -> None:
         if creature not in world.get_all_entities():
